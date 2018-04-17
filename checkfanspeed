@@ -1,0 +1,13 @@
+#!/bin/bash
+BL="$(cat /etc/backlight/backlight)"
+RIGHT="$(sensors | grep -Po '(?<=(Right side : )).*(?= RPM  \()')"
+LEFT="$(sensors | grep -Po '(?<=(Left side  : )).*(?= RPM  \()')"
+RSSIMOD="$((RSSI * 1000))"
+BLMOD="$((BL * 1000))"
+RIGHTMOD="$((RIGHT * 1000))"
+LEFTMOD="$((LEFT * 1000))"
+echo "${BLMOD}" > /etc/backlight/i3status
+echo "${RSSIMOD}" > /etc/rssi
+echo "${RIGHTMOD}" > /etc/fanspeed/right
+echo "${LEFTMOD}" > /etc/fanspeed/left
+
